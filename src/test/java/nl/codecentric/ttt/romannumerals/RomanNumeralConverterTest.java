@@ -1,6 +1,6 @@
 package nl.codecentric.ttt.romannumerals;
 
-import org.junit.Test;
+import org.junit.*;
 
 import static org.junit.Assert.*;
 
@@ -10,6 +10,29 @@ import static org.junit.Assert.*;
 public class RomanNumeralConverterTest {
 
     private RomanNumeralConverter romanNumeralConverter;
+
+
+    @BeforeClass
+    public static void beforeClass(){
+        System.out.println("Executed before all tests");
+    }
+
+    @AfterClass
+    public static void afterClass(){
+        System.out.println("Executed after all tests");
+    }
+
+    @Before
+    public void before(){
+        romanNumeralConverter = new RomanNumeralConverter(); // Create a default constructor instance for every test
+        System.out.println("Executed before every test");
+    }
+
+    @After
+    public void after(){
+        System.out.println("Executed after every test");
+    }
+
 
 
     @Test // Indicates that this is test
