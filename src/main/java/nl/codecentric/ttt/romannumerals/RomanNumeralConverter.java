@@ -14,6 +14,7 @@ public class RomanNumeralConverter {
 
 
     public RomanNumeralConverter(final String prefix) {
+        if (null == prefix) throw new IllegalStateException("Prefix cannot be null");
         this.prefix = prefix;
     }
 
