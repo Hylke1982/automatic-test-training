@@ -1,6 +1,6 @@
 #Automatic unit tests
 
-Automatic unit testing
+Automatic unit testing exercises, based on Roman numeral conversion up to 10. 
 
 - [Frameworks](#Frameworks)
 - [Red, Yellow, Green, (Refactor)](#Red,-Yellow,-Green,-Refactor)
@@ -8,9 +8,9 @@ Automatic unit testing
 - [before / after / beforeClass / afterClass](#before,-after,-beforeClass,-afterClass)
 - [null input](#null-input)
 - [Zero input](#Zero-input)
-- Simple case 2
-- Simple case 3
-- Simple case 3
+- [Convert 1](#Convert-1)
+- [Convert 2 and 3](#Convert-2-and-3)
+- [Covert 5](#Convert-5)
 - Edge case 1 
 - Edge case 2
 - Edge case 3
@@ -271,8 +271,119 @@ public String convert(final Integer number) {
 }
 ```
 
+##Convert 1
 
+After validating the edge case zero, then it is time to actually convert values 
+starting with 1.
 
+```java
+@Test
+public void testConvertWithOne() {
+    final String returnedValue = romanNumeralConverter.convert(1);
+    assertEquals("I", returnedValue);
+}
+```
+
+Behavior added to the converter method
+```java
+public String convert(final Integer number) {
+    if (null == number) throw new IllegalArgumentException("Number cannot be null");
+
+    String returnValue = "";
+    if(number==1){
+        returnValue = "I";
+    }
+
+    return returnValue;
+}
+```
+
+##Convert 2 and 3
+When convert number 2 into II then it becomes clear why refactoring 
+is a important part of building up unit tests.
+
+First write the test for these variations
+
+```java
+@Test
+public void testConvertWithTwo() {
+    final String returnedValue = romanNumeralConverter.convert(2);
+    assertEquals("II", returnedValue);
+}
+
+@Test
+public void testConvertWithThree() {
+    final String returnedValue = romanNumeralConverter.convert(3);
+    assertEquals("III", returnedValue);
+}
+```
+
+First make the test pass, with this code that is not optimized.
+```java
+public String convert(final Integer number) {
+    if (null == number) throw new IllegalArgumentException("Number cannot be null");
+
+    String returnValue = "";
+    if (number == 1) {
+        returnValue = "I";
+    } else if (number == 2) {
+        returnValue = "II";
+    } else if (number == 3) {
+        returnValue = "III";
+    }
+
+    return returnValue;
+}
+```
+
+Then refactor the code and validate if all tests are still passing.
+```java
+public String convert(final Integer number) {
+    if (null == number) throw new IllegalArgumentException("Number cannot be null");
+
+    String returnValue = "";
+    for(int i = 0; i < number;i++){
+        returnValue += "I";
+    }
+
+    return returnValue;
+}
+```
+##Convert 5
+
+The number 5 converts to V, meaning that a new strategy is required to do this 
+conversion. But first create a test validating for this value.
+
+```java
+@Test
+public void testConvertWithFive() {
+    final String returnedValue = romanNumeralConverter.convert(5);
+    assertEquals("V", returnedValue);
+}
+```
+
+Added this behavior to the converter method
+```java
+public String convert(final Integer number) {
+    if (null == number) throw new IllegalArgumentException("Number cannot be null");
+
+    String returnValue = "";
+
+    int romanFiveCount = number / 5;
+    int numberOneRemain = number % 5;
+    int romanOneCount = numberOneRemain;
+
+    for (int i = 0; i < romanFiveCount; i++) {
+        returnValue += "V";
+    }
+
+    for (int i = 0; i < romanOneCount; i++) {
+        returnValue += "I";
+    }
+
+    return returnValue;
+}
+```
 
 
 

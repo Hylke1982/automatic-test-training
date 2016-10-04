@@ -74,4 +74,28 @@ public class RomanNumeralConverterTest {
         assertEquals("", returnedValue);
     }
 
+    @Test
+    public void testConvertWithOne() {
+        final String returnedValue = romanNumeralConverter.convert(1);
+        assertEquals("I", returnedValue);
+    }
+
+    @Test
+    public void testConvertWithTwo() {
+        final String returnedValue = romanNumeralConverter.convert(2);
+        assertEquals("II", returnedValue);
+    }
+
+    @Test
+    public void testConvertWithThree() {
+        final String returnedValue = romanNumeralConverter.convert(3);
+        assertEquals("III", returnedValue);
+    }
+
+    @Test
+    public void testConvertWithFive() {
+        final String returnedValue = romanNumeralConverter.convert(5);
+        assertEquals("V", returnedValue);
+    }
+
 }

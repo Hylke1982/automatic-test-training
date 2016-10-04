@@ -25,6 +25,21 @@ public class RomanNumeralConverter {
 
     public String convert(final Integer number) {
         if (null == number) throw new IllegalArgumentException("Number cannot be null");
-        return "";
+
+        String returnValue = "";
+
+        int romanFiveCount = number / 5;
+        int numberOneRemain = number % 5;
+        int romanOneCount = numberOneRemain;
+
+        for (int i = 0; i < romanFiveCount; i++) {
+            returnValue += "V";
+        }
+
+        for (int i = 0; i < romanOneCount; i++) {
+            returnValue += "I";
+        }
+
+        return returnValue;
     }
 }
