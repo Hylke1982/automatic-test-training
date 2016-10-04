@@ -13,7 +13,7 @@ Automatic unit testing exercises, based on Roman numeral conversion up to 6.
 - [Convert 5](#Convert-5)
 - [Convert 4 and 6](#Convert-4-and-6)
 - [Bounderies](#Bounderies)
-- Edge case 3
+- [Mockito](#Mockito)
 
 ##Frameworks
 
@@ -538,3 +538,92 @@ private boolean isNotValidRange(Integer number) {
 ```
 Now a situation occurs where the same exception is thrown in two different cases 
 If would recommended that the message of the exception is validated.
+
+##Mockito
+The RomanNumeralConverter will probably be imported in some other classes, but 
+as a developer/tester is necessary to keep the isolation of a unit test to one 
+class, one method in one variation. Mockito is a framework that allows for this
+to simulate/control interactions with one method with another class.
+
+For example if a converter service is introduced where different conversions can be done 
+a every conversion is delegated to a different converter.
+
+Create a ConverterServiceTest
+```java
+package nl.codecentric.ttt.romannumerals.service;
+
+import nl.codecentric.ttt.romannumerals.RomanNumeralConverter;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
+/**
+ * Created by hylke on 04/10/2016.
+ */
+public class ConverterServiceTest {
+
+    @Mock // Indicate that this is mock
+    private RomanNumeralConverter romanNumeralConverter;
+    private ConverterService converterService;
+
+
+    @Before
+    public void before() {
+        MockitoAnnotations.initMocks(this); // Start mockito for every test run
+        converterService = new ConverterService(romanNumeralConverter); // Create converter service to test and inject mock
+    }
+
+    @Test
+    public void testRomanNumeralConversion() {
+        converterService.romanNumeralConversion(5); // Call method to test
+        verify(romanNumeralConverter.convert(5), times(1)); // Verify if the underlying mock is called
+    }
+
+
+}
+```
+
+In this example is verified if the underlying method RomanNumeralConverter.convert is called.
+
+The actual ConverterService
+```java
+package nl.codecentric.ttt.romannumerals.service;
+
+import nl.codecentric.ttt.romannumerals.RomanNumeralConverter;
+
+/**
+ * Created by hylke on 04/10/2016.
+ */
+public class ConverterService {
+
+
+    private final RomanNumeralConverter romanNumeralConverter; // roman numeral converter
+
+    public ConverterService(final RomanNumeralConverter romanNumeralConverter) {
+        this.romanNumeralConverter = romanNumeralConverter;
+    }
+
+    public String romanNumeralConversion(final Integer number) {
+        return romanNumeralConverter.convert(number); // Call the underlying roman numeral converter
+    }
+}
+```
+
+Mockito offers other behaviors of mocks, return certain return values or throw an exception if 
+a method is called on a mock.
+
+```java
+@Test(expected = IllegalArgumentException.class)
+public void testRomanNumeralConversionWithException() {
+    // Throw a illegal argument exception when method convert is called (for any int)
+    when(romanNumeralConverter.convert(anyInt())).thenThrow(IllegalArgumentException.class);
+    converterService.romanNumeralConversion(5); // Call method to test
+}
+```
+
+Now it time to proceed to the [Integration test](INTEGRATION.md)
