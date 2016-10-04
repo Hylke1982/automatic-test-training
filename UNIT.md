@@ -2,18 +2,18 @@
 
 Automatic unit testing exercises, based on Roman numeral conversion up to 6. 
 
-- [Frameworks](#Frameworks)
-- [Red, Yellow, Green, (Refactor)](#Red,-Yellow,-Green,-Refactor)
-- [Construct behavior](#Construct-behavior)
-- [before / after / beforeClass / afterClass](#before,-after,-beforeClass,-afterClass)
+- [Frameworks](#frameworks)
+- [Red, Yellow, Green, (Refactor)](#red,-yellow,-green,-refactor)
+- [Construct behavior](#construct-behavior)
+- [before / after / beforeClass / afterClass](#before,-after,-beforeclass,-afterclass)
 - [null input](#null-input)
-- [Zero input](#Zero-input)
-- [Convert 1](#Convert-1)
-- [Convert 2 and 3](#Convert-2-and-3)
-- [Convert 5](#Convert-5)
-- [Convert 4 and 6](#Convert-4-and-6)
-- [Bounderies](#Bounderies)
-- [Mockito](#Mockito)
+- [Zero input](#zero-input)
+- [Convert 1](#convert-1)
+- [Convert 2 and 3](#convert-2-and-3)
+- [Convert 5](#convert-5)
+- [Convert 4 and 6](#convert-4-and-6)
+- [Bounderies](#bounderies)
+- [Mockito](#mockito)
 
 ##Frameworks
 
