@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Import;
  * Created by hylke on 04/10/2016.
  */
 @Configuration
-@Import({FollowUpConverterConfiguration.class})
 public class ConverterConfiguration {
 
     @Bean(name = "randomNumberService")

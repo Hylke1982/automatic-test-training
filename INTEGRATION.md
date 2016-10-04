@@ -32,6 +32,84 @@ from the context.
 is returned when no profile is chosen or when the *followup* profile is active. Test classes are already added
 but tests itself still have to be done.
 
+Normal converter configuration test
+```java
+package nl.codecentric.ttt.romannumerals.configuration;
+
+import nl.codecentric.ttt.romannumerals.service.FollowUpRandomNumberService;
+import nl.codecentric.ttt.romannumerals.service.NormalRandomNumberService;
+import nl.codecentric.ttt.romannumerals.service.RandomNumberService;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener;
+import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
+
+import static org.junit.Assert.assertTrue;
+
+/**
+ * Created by hylke on 04/10/2016.
+ */
+@RunWith(SpringJUnit4ClassRunner.class) // Instruct JUnit to use Spring framework test helper
+@ContextConfiguration(classes = {ConverterConfiguration.class, FollowUpConverterConfiguration.class}) // Load the right configuration
+@TestExecutionListeners({DirtiesContextBeforeModesTestExecutionListener.class,
+        DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class})
+public class ConverterConfigurationTest {
+
+    @Autowired
+    private RandomNumberService randomNumberService;
+
+
+    @Test
+    public void testCorrectInstanceRandomNumberService(){
+        assertTrue(randomNumberService instanceof NormalRandomNumberService);
+    }
+}
+```
+
+Follow up configuration test
+```java
+package nl.codecentric.ttt.romannumerals.configuration;
+
+import nl.codecentric.ttt.romannumerals.service.FollowUpRandomNumberService;
+import nl.codecentric.ttt.romannumerals.service.RandomNumberService;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener;
+import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
+
+import static org.junit.Assert.assertTrue;
+
+/**
+ * Created by hylke on 04/10/2016.
+ */
+@RunWith(SpringJUnit4ClassRunner.class) // Instruct JUnit to use Spring framework test helper
+@ContextConfiguration(classes = {ConverterConfiguration.class, FollowUpConverterConfiguration.class}) // Load the right configuration
+@ActiveProfiles(profiles = {"followup"})
+@TestExecutionListeners({DirtiesContextBeforeModesTestExecutionListener.class,
+        DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class})
+public class FollupUpConverterConfigurationTest {
+
+    @Autowired
+    private RandomNumberService randomNumberService;
+
+
+    @Test
+    public void testCorrectInstanceRandomNumberService(){
+        assertTrue(randomNumberService instanceof FollowUpRandomNumberService);
+    }
+}
+```
 
 
 

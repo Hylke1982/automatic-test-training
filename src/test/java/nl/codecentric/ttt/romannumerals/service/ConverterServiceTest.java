@@ -19,6 +19,7 @@ public class ConverterServiceTest {
 
     @Mock // Indicate that this is mock
     private RomanNumeralConverter romanNumeralConverter;
+
     private ConverterService converterService;
 
 
@@ -31,7 +32,7 @@ public class ConverterServiceTest {
     @Test
     public void testRomanNumeralConversion() {
         converterService.romanNumeralConversion(5); // Call method to test
-        verify(romanNumeralConverter.convert(5), times(1)); // Verify if the underlying mock is called
+        verify(romanNumeralConverter, times(1)).convert(5); // Verify if the underlying mock is called
     }
 
     @Test(expected = IllegalArgumentException.class)

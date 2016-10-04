@@ -4,6 +4,7 @@ import nl.codecentric.ttt.romannumerals.service.FollowUpRandomNumberService;
 import nl.codecentric.ttt.romannumerals.service.RandomNumberService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 
 /**
