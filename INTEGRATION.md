@@ -122,5 +122,60 @@ Making direct use of the (system) clock makes it very hard to test your applicat
 **Exercise:** Create a clock service where the normal implementation returns the system time and 
 a time travel service where a specific date/time can be set.
 
+First create an interface that shares the method contract
+
+```java
+package nl.codecentric.ttt.romannumerals.service;
+
+import java.util.Date;
+
+/**
+ * Created by hylke on 04/10/2016.
+ */
+public interface ClockService {
+
+    public Date getCurrentTime();
+}
+```
+
+Normal implementation, where current time is returned
+```java
+package nl.codecentric.ttt.romannumerals.service;
+
+import java.util.Date;
+
+/**
+ * Created by hylke on 04/10/2016.
+ */
+public class NormalClockService implements ClockService {
+    public Date getCurrentTime() {
+        return new Date();
+    }
+}
+```
+
+Time travel implementation where the date can be set.
+```java
+package nl.codecentric.ttt.romannumerals.service;
+
+import java.util.Date;
+
+/**
+ * Created by hylke on 04/10/2016.
+ */
+public class TimeTravelClockService implements ClockService {
+
+    private Date newDate;
+
+    public void setDate(final Date newDate) {
+        this.newDate = newDate;
+    }
+
+    public Date getCurrentTime() {
+        return this.newDate;
+    }
+}
+```
+
 
 
