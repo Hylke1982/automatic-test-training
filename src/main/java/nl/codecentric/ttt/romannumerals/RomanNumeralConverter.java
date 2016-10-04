@@ -23,7 +23,8 @@ public class RomanNumeralConverter {
         return prefix;
     }
 
-    public void convert(final Integer number) {
+    public String convert(final Integer number) {
         if (null == number) throw new IllegalArgumentException("Number cannot be null");
+        return "";
     }
 }

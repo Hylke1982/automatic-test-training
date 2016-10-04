@@ -13,26 +13,25 @@ public class RomanNumeralConverterTest {
 
 
     @BeforeClass
-    public static void beforeClass(){
+    public static void beforeClass() {
         System.out.println("Executed before all tests");
     }
 
     @AfterClass
-    public static void afterClass(){
+    public static void afterClass() {
         System.out.println("Executed after all tests");
     }
 
     @Before
-    public void before(){
+    public void before() {
         romanNumeralConverter = new RomanNumeralConverter(); // Create a default constructor instance for every test
         System.out.println("Executed before every test");
     }
 
     @After
-    public void after(){
+    public void after() {
         System.out.println("Executed after every test");
     }
-
 
 
     @Test // Indicates that this is test
@@ -65,8 +64,14 @@ public class RomanNumeralConverterTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testConvertWithNull(){
+    public void testConvertWithNull() {
         romanNumeralConverter.convert(null);
+    }
+
+    @Test
+    public void testConvertWithZero() {
+        final String returnedValue = romanNumeralConverter.convert(0);
+        assertEquals("", returnedValue);
     }
 
 }

@@ -3,11 +3,11 @@
 Automatic unit testing
 
 - [Frameworks](#Frameworks)
-- [Red, Yellow, Green, (Refactor)](#Red, Yellow, Green, Refactor)
-- [Construct behavior](#Construct behavior)
-- [before / after / beforeClass / afterClass](#before, after, beforeClass, afterClass)
-- [null input](#null input)
-- Simple case 1
+- [Red, Yellow, Green, (Refactor)](#Red,-Yellow,-Green,-Refactor)
+- [Construct behavior](#Construct-behavior)
+- [before / after / beforeClass / afterClass](#before,-after,-beforeClass,-afterClass)
+- [null input](#null-input)
+- [Zero input](#Zero-input)
 - Simple case 2
 - Simple case 3
 - Simple case 3
@@ -246,6 +246,28 @@ Behaviour added to converter
 ```java
 public void convert(final Integer number) {
     if (null == number) throw new IllegalArgumentException("Number cannot be null");
+}
+```
+
+##Zero input
+Next to null input, when testing methods it always a good idea to validate 
+if the input is zero (0). Zero is a typical edge case situation and is
+this situation a empty string must be returned.
+
+Test
+```java
+@Test
+public void testConvertWithZero() {
+    final String returnedValue = romanNumeralConverter.convert(0);
+    assertEquals("", returnedValue);
+}
+```
+
+Behaviour added to converter
+```java
+public String convert(final Integer number) {
+    if (null == number) throw new IllegalArgumentException("Number cannot be null");
+    return "";
 }
 ```
 
