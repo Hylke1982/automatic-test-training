@@ -64,4 +64,9 @@ public class RomanNumeralConverterTest {
         }
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testConvertWithNull(){
+        romanNumeralConverter.convert(null);
+    }
+
 }

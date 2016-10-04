@@ -22,4 +22,8 @@ public class RomanNumeralConverter {
     public String getPrefix() {
         return prefix;
     }
+
+    public void convert(final Integer number) {
+        if (null == number) throw new IllegalArgumentException("Number cannot be null");
+    }
 }
