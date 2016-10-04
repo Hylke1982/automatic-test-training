@@ -30,6 +30,12 @@ public class RomanNumeralConverter {
 
         int romanFiveCount = number / 5;
         int numberOneRemain = number % 5;
+
+        if (numberOneRemain == 4) {
+            returnValue += "I";
+            romanFiveCount = 1;
+            numberOneRemain = 0;
+        }
         int romanOneCount = numberOneRemain;
 
         for (int i = 0; i < romanFiveCount; i++) {

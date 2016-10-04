@@ -1,6 +1,6 @@
 #Automatic unit tests
 
-Automatic unit testing exercises, based on Roman numeral conversion up to 10. 
+Automatic unit testing exercises, based on Roman numeral conversion up to 6. 
 
 - [Frameworks](#Frameworks)
 - [Red, Yellow, Green, (Refactor)](#Red,-Yellow,-Green,-Refactor)
@@ -10,8 +10,8 @@ Automatic unit testing exercises, based on Roman numeral conversion up to 10.
 - [Zero input](#Zero-input)
 - [Convert 1](#Convert-1)
 - [Convert 2 and 3](#Convert-2-and-3)
-- [Covert 5](#Convert-5)
-- Edge case 1 
+- [Convert 5](#Convert-5)
+- [Convert 4 and 6](#Convert-4-and-6)
 - Edge case 2
 - Edge case 3
 
@@ -385,5 +385,86 @@ public String convert(final Integer number) {
 }
 ```
 
+It is now a great moment to refactor the tests, for almost every number conversion 
+there the same methods are applied. Refactoring the test keeps these tests maintable. 
+If for example the method signature changes, the refactoring of the tests becomes minimal.
 
+```java
+@Test
+public void testConvertWithZero() {
+    validateConvert(0, "");
+}
+
+@Test
+public void testConvertWithOne() {
+    validateConvert(1, "I");
+}
+
+@Test
+public void testConvertWithTwo() {
+    validateConvert(2, "II");
+}
+
+@Test
+public void testConvertWithThree() {
+    validateConvert(3, "III");
+}
+
+@Test
+public void testConvertWithFive() {
+    validateConvert(5, "V");
+}
+
+private void validateConvert(int number, String romanNumeral) {
+    final String returnedValue = romanNumeralConverter.convert(number);
+    assertEquals(romanNumeral, returnedValue);
+}
+```
+
+##Convert 4 and 6
+
+Converting to 4 and 6 are typical edge cases while converting to roman numerals. Therefore 
+it is very wise to test these conditions.
+
+Tests
+```java
+@Test
+public void testConvertWithFour() {
+    validateConvert(4, "IV");
+}
+
+@Test
+public void testConvertWithSix() {
+    validateConvert(6, "VI");
+}
+```
+
+Changed convert method, if number are going to be bigger another algorithm is required.
+```java
+public String convert(final Integer number) {
+    if (null == number) throw new IllegalArgumentException("Number cannot be null");
+
+    String returnValue = "";
+
+    int romanFiveCount = number / 5;
+    int numberOneRemain = number % 5;
+
+    if (numberOneRemain == 4) {
+        returnValue += "I";
+        romanFiveCount = 1;
+        numberOneRemain = 0;
+    }
+    int romanOneCount = numberOneRemain;
+
+    for (int i = 0; i < romanFiveCount; i++) {
+        returnValue += "V";
+    }
+
+    for (int i = 0; i < romanOneCount; i++) {
+        returnValue += "I";
+    }
+
+    return returnValue;
+}
+```
 

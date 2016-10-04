@@ -70,32 +70,42 @@ public class RomanNumeralConverterTest {
 
     @Test
     public void testConvertWithZero() {
-        final String returnedValue = romanNumeralConverter.convert(0);
-        assertEquals("", returnedValue);
+        validateConvert(0, "");
     }
 
     @Test
     public void testConvertWithOne() {
-        final String returnedValue = romanNumeralConverter.convert(1);
-        assertEquals("I", returnedValue);
+        validateConvert(1, "I");
     }
 
     @Test
     public void testConvertWithTwo() {
-        final String returnedValue = romanNumeralConverter.convert(2);
-        assertEquals("II", returnedValue);
+        validateConvert(2, "II");
     }
 
     @Test
     public void testConvertWithThree() {
-        final String returnedValue = romanNumeralConverter.convert(3);
-        assertEquals("III", returnedValue);
+        validateConvert(3, "III");
     }
 
     @Test
     public void testConvertWithFive() {
-        final String returnedValue = romanNumeralConverter.convert(5);
-        assertEquals("V", returnedValue);
+        validateConvert(5, "V");
+    }
+
+    @Test
+    public void testConvertWithFour() {
+        validateConvert(4, "IV");
+    }
+
+    @Test
+    public void testConvertWithSix() {
+        validateConvert(6, "VI");
+    }
+
+    private void validateConvert(int number, String romanNumeral) {
+        final String returnedValue = romanNumeralConverter.convert(number);
+        assertEquals(romanNumeral, returnedValue);
     }
 
 }
