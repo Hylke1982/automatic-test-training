@@ -25,6 +25,7 @@ public class RomanNumeralConverter {
 
     public String convert(final Integer number) {
         if (null == number) throw new IllegalArgumentException("Number cannot be null");
+        if(isNotValidRange(number)) throw new IllegalArgumentException("Number not in range");
 
         String returnValue = "";
 
@@ -47,5 +48,9 @@ public class RomanNumeralConverter {
         }
 
         return returnValue;
+    }
+
+    private boolean isNotValidRange(Integer number) {
+        return !(number >= 0 && 7 > number);
     }
 }

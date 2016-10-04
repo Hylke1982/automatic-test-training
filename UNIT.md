@@ -12,7 +12,7 @@ Automatic unit testing exercises, based on Roman numeral conversion up to 6.
 - [Convert 2 and 3](#Convert-2-and-3)
 - [Convert 5](#Convert-5)
 - [Convert 4 and 6](#Convert-4-and-6)
-- Edge case 2
+- [Bounderies](#Bounderies)
 - Edge case 3
 
 ##Frameworks
@@ -468,3 +468,73 @@ public String convert(final Integer number) {
 }
 ```
 
+##Bounderies
+Bounderies are great to validate in a unit test, you can prevent incorrect input 
+into your application and inform the user what is going wrong.
+
+For this test the input value cannot be lower than zero or higher than six, and 
+when called with a invalid number a illegalargument exceptions is thrown.
+
+It also wise to test the max and min integer values to see if there is no odd 
+behavior at the ends of the range.
+
+Tests
+```java
+@Test(expected = IllegalArgumentException.class)
+public void testConvertWithMinusOne(){
+    romanNumeralConverter.convert(-1);
+}
+
+@Test(expected = IllegalArgumentException.class)
+public void testConvertWithSeven(){
+    romanNumeralConverter.convert(7);
+}
+
+@Test(expected = IllegalArgumentException.class)
+public void testConvertWithIntegerMinValue(){
+    romanNumeralConverter.convert(Integer.MIN_VALUE);
+}
+
+@Test(expected = IllegalArgumentException.class)
+public void testConvertWithIntegerMaxValue(){
+    romanNumeralConverter.convert(Integer.MAX_VALUE);
+}
+```
+Something interesting happens when the tests are executed without implementation. 
+The Integer Max Value will probably hang for a long time, this is caused by the 
+for-loop that is going from 0 to the max integer value.
+
+```java
+public String convert(final Integer number) {
+    if (null == number) throw new IllegalArgumentException("Number cannot be null");
+    if(isNotValidRange(number)) throw new IllegalArgumentException("Number not in range");
+
+    String returnValue = "";
+
+    int romanFiveCount = number / 5;
+    int numberOneRemain = number % 5;
+
+    if (numberOneRemain == 4) {
+        returnValue += "I";
+        romanFiveCount = 1;
+        numberOneRemain = 0;
+    }
+    int romanOneCount = numberOneRemain;
+
+    for (int i = 0; i < romanFiveCount; i++) {
+        returnValue += "V";
+    }
+
+    for (int i = 0; i < romanOneCount; i++) {
+        returnValue += "I";
+    }
+
+    return returnValue;
+}
+
+private boolean isNotValidRange(Integer number) {
+    return !(number >= 0 && 7 > number);
+}
+```
+Now a situation occurs where the same exception is thrown in two different cases 
+If would recommended that the message of the exception is validated.

@@ -103,7 +103,27 @@ public class RomanNumeralConverterTest {
         validateConvert(6, "VI");
     }
 
-    private void validateConvert(int number, String romanNumeral) {
+    @Test(expected = IllegalArgumentException.class)
+    public void testConvertWithMinusOne(){
+        romanNumeralConverter.convert(-1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testConvertWithSeven(){
+        romanNumeralConverter.convert(7);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testConvertWithIntegerMinValue(){
+        romanNumeralConverter.convert(Integer.MIN_VALUE);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testConvertWithIntegerMaxValue(){
+        romanNumeralConverter.convert(Integer.MAX_VALUE);
+    }
+
+    private void validateConvert(final int number, final String romanNumeral) {
         final String returnedValue = romanNumeralConverter.convert(number);
         assertEquals(romanNumeral, returnedValue);
     }
